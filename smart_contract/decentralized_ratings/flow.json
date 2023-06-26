@@ -1,49 +1,12 @@
 {
-	"scripts": {
-		"Test": "./scripts/test.cdc"
+	"emulators": {
+		"default": {
+			"port": 3569,
+			"serviceAccount": "emulator-account"
+		}
 	},
 	"contracts": {
-		"MovieRatings": "./contracts/MovieRating.cdc",
-		"NonFungibleToken": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"FlowToken": {
-			"aliases": {
-				"emulator": "0ae53cb6e3f42a79"
-			}
-		},
-		"FungibleToken": {
-			"aliases": {
-				"emulator": "ee82856bf20e2aa6"
-			}
-		},
-		"FUSD": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"MetadataViews": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"ExampleNFT": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"NFTStorefrontV2": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"NFTStorefront": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		}
+		"MovieRating": "./cadence/contracts/MovieRating.cdc"
 	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -55,6 +18,23 @@
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
 			"key": "f26eb416b89a2c2ba711a89a9de16cc28c20186520d4fc0591b8d3de111c5e8c"
+		},
+		"emulator-rater": {
+			"address": "0x01cf0e2f2f715450",
+			"key": {
+				"type": "hex",
+				"index": 0,
+				"signatureAlgorithm": "ECDSA_secp256k1",
+				"hashAlgorithm": "SHA3_256",
+				"privateKey": "b83da3e294fe8502ce0b8dbb227ffe591465a5c17f9efb119e67c9367a32cd78"
+			}
+		}
+	},
+	"deployments": {
+		"emulator": {
+			"emulator-account": [
+				"MovieRating"
+			]
 		}
 	}
 }
