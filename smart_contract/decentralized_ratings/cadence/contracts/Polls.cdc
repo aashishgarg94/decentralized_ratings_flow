@@ -107,11 +107,42 @@ pub contract Polls {
     access(contract) var votes: {Address: Vote}
     access(contract) var stakes: {Address: Stake}
 
+    pub resource Administrator {
+        pub fun addPoll(poll_id: String, voting_deadline: UInt64, max_options: UInt8, public_key: String) {
+            Polls.polls[poll_id] = Poll(poll_id: poll_id, voting_deadline: voting_deadline, max_options: max_options, public_key: public_key)
+        }
+
+        pub fun cancelPoll(poll_id: String) {
+            Polls.polls[poll_id]?.cancel_poll()
+        }
+
+        pub fun endPoll(poll_id: String) {
+            Polls.polls[poll_id]?.end_poll()
+        }
+
+        pub fun revealPoll(poll_id: String, result: UInt8, secret_key: String) {
+            Polls.polls[poll_id]?.reveal_poll(result: result, secret_key: secret_key)
+        }
+
+        pub fun revealVote(address: Address, decrypted_vote: UInt8) {
+            Polls.votes[address]?.reveal_vote(decrypted_vote: decrypted_vote)
+        }
+
+        pub fun addContent(content_id: String, title: String) {
+            Polls.content[content_id] = Content(title: title)
+        }
+
+        pub fun update_cumulative_ratings(content_id: String, cumulative_rating: UInt64, votes_added: UInt32) {
+            Polls.content[content_id]?.update_cumulative_ratings(cumulative_rating: cumulative_rating, votes_added: votes_added)
+        }
+    }
+
     init() {
         self.polls = {}
         self.votes = {}
         self.stakes = {}
         self.content = {}
+        self.account.save<@Administrator>(<-create Administrator(), to: /storage/PollAdmin)
     }
 
     pub fun getPolls(): {String: Poll} {
@@ -126,10 +157,6 @@ pub contract Polls {
         return self.stakes
     }
 
-    pub fun addPoll(poll_id: String, voting_deadline: UInt64, max_options: UInt8, public_key: String) {
-        self.polls[poll_id] = Poll(poll_id: poll_id, voting_deadline: voting_deadline, max_options: max_options, public_key: public_key)
-    }
-
     pub fun addVote(account: AuthAccount, poll_id: String, encrypted_vote: String) {
         self.votes[account.address] = Vote(poll_id: poll_id, encrypted_vote: encrypted_vote)
         self.polls[poll_id]?.add_vote()
@@ -137,29 +164,5 @@ pub contract Polls {
 
     pub fun addStake(account: AuthAccount, poll_id: String, staked_amount: UInt64, range_begin: UInt8, range_end: UInt8) {
         self.stakes[account.address] = Stake(poll_id: poll_id, staked_amount: staked_amount, range_begin: range_begin, range_end: range_end)
-    }
-
-    pub fun addContent(content_id: String, title: String) {
-        self.content[content_id] = Content(title: title)
-    }
-
-    pub fun cancelPoll(poll_id: String) {
-        self.polls[poll_id]?.cancel_poll()
-    }
-
-    pub fun endPoll(poll_id: String) {
-        self.polls[poll_id]?.end_poll()
-    }
-
-    pub fun revealPoll(poll_id: String, result: UInt8, secret_key: String) {
-        self.polls[poll_id]?.reveal_poll(result: result, secret_key: secret_key)
-    }
-
-    pub fun update_cumulative_ratings(content_id: String, cumulative_rating: UInt64, votes_added: UInt32) {
-        self.content[content_id]?.update_cumulative_ratings(cumulative_rating: cumulative_rating, votes_added: votes_added)
-    }
-
-    pub fun revealVote(account: AuthAccount, decrypted_vote: UInt8) {
-        self.votes[account.address]?.reveal_vote(decrypted_vote: decrypted_vote)
     }
 }
