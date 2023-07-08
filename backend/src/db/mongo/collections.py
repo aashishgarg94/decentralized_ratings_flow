@@ -1,0 +1,7 @@
+DB_NAME = "staging"
+USERS = "users"
+POLL = "poll"
+VOTE = "vote"
+STAKE = "stake"
+APP_INFO = "appinfo"
+CONTENT = "content"

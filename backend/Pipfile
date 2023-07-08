@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+autoflake = "*"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+python-multipart = "*"
+pyjwt = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
+motor = "*"
+boto3 = "*"
+requests = "*"
+email-validator = "*"
+typing_extensions = "*"
+python-dotenv = "*"
+pycryptodome = "*"
+
+[requires]
+python_version = "3.11.3"
+
+[pipenv]
+allow_prereleases = true
