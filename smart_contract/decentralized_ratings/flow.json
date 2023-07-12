@@ -6,7 +6,8 @@
 		}
 	},
 	"contracts": {
-		"MovieRating": "./cadence/contracts/MovieRating.cdc"
+		"MovieRating": "./cadence/contracts/MovieRating.cdc",
+		"Polls": "./cadence/contracts/Polls.cdc"
 	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -28,12 +29,23 @@
 				"hashAlgorithm": "SHA3_256",
 				"privateKey": "b83da3e294fe8502ce0b8dbb227ffe591465a5c17f9efb119e67c9367a32cd78"
 			}
+		},
+		"testnet-account": {
+			"address": "0x163a1031b82fbaf9",
+			"key": {
+				"type": "hex",
+				"index": 0,
+				"signatureAlgorithm": "ECDSA_secp256k1",
+				"hashAlgorithm": "SHA3_256",
+				"privateKey": "a68367f1fceb3e9f32b031477fdfbfa28567e96fd071f5649d7f2c7e97740e81"
+			}
 		}
 	},
 	"deployments": {
-		"emulator": {
-			"emulator-account": [
-				"MovieRating"
+		"testnet": {
+			"testnet-account": [
+				"MovieRating",
+				"Polls"
 			]
 		}
 	}
