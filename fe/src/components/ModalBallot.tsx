@@ -98,6 +98,7 @@ const ModalBallot: React.FC<{
           execute{
           Polls.addVote(account: self.account, poll_id: pollId, encrypted_vote: encryptedVote)
           }
+        }
         `,
         args: (arg: any, t: any) => [arg(poll.poll_address, t.String), arg(encryptedVote, t.String)],
         limit: 50

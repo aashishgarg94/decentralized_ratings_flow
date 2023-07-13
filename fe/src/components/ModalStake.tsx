@@ -121,6 +121,7 @@ const Stake: React.FC<{
           execute{
           Polls.addStake(account: self.account, poll_id: pollId, encrypted_vote: encryptedVote, staked_amount: tokensStaked, range_begin: rangeBegin, range_end: rangeEnd)
           }
+        }
         `,
         args: (arg: any, t: any) => [arg(poll.poll_address, t.String), arg(updatedStakeState.tokens_staked, t.UInt64), arg(updatedStakeState.range_begin, t.UInt8), arg(updatedStakeState.range_end, t.UInt8)],
         limit: 50
