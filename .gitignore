@@ -4,6 +4,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+*flow.json*
+
 .DS_Store
 
 node_modules

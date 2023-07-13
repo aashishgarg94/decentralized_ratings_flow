@@ -1,1 +1,0 @@
-# decentralized_ratings_sui_backend
