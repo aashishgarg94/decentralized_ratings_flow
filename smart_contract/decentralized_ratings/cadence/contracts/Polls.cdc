@@ -37,10 +37,16 @@ pub contract Polls {
         }
 
         pub fun cancel_poll() {
+            pre {
+                self.is_active(): "Poll must be in active state to be cancelled"
+            }
             self.status = "cancelled"
         }
 
         pub fun end_poll() {
+            pre {
+                self.is_active(): "Poll must be in active state to be ended"
+            }
             self.status = "ended"
         }
 
@@ -49,6 +55,9 @@ pub contract Polls {
         }
 
         pub fun reveal_poll(result: UInt8, secret_key: String) {
+            pre {
+                self.is_ended(): "Poll voting must have ended to be revealed"
+            }
             self.status = "revealed"
             self.result = result
             self.secret_key = secret_key
