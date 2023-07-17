@@ -112,14 +112,14 @@ const Stake: React.FC<{
         cadence: `
         import Polls from 0x163a1031b82fbaf9
       
-        transaction(pollId: String, encryptedVote: String, tokensStaked: UInt64, rangeBegin: UInt8, rangeEnd: UInt8) {
+        transaction(pollId: String, tokensStaked: UInt64, rangeBegin: UInt8, rangeEnd: UInt8) {
           let account: AuthAccount
   
           prepare(account: AuthAccount) {
             self.account = account
           }
           execute{
-          Polls.addStake(account: self.account, poll_id: pollId, encrypted_vote: encryptedVote, staked_amount: tokensStaked, range_begin: rangeBegin, range_end: rangeEnd)
+          Polls.addStake(account: self.account, poll_id: pollId, staked_amount: tokensStaked, range_begin: rangeBegin, range_end: rangeEnd)
           }
         }
         `,
